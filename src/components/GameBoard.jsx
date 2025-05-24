@@ -1,20 +1,19 @@
 import { useState, useEffect } from "react"
 
-const n = 3
 let isWon = false
-const initialGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-]
+let gameBoard = null
 
-function GameBoard({ onSelect, gameInfo }) {
-  const gameBoard = initialGameBoard
+function GameBoard({ onSelect, gameInfo, n }) {
   const latestGameInfo = gameInfo[0]
-  if (latestGameInfo) gameBoard[latestGameInfo.row][latestGameInfo.col] = latestGameInfo.player
+
+  if (latestGameInfo) {
+    gameBoard[latestGameInfo.row][latestGameInfo.col] = latestGameInfo.player
+  } else {
+    gameBoard = new Array(n).fill(0).map(el => new Array(n).fill(null))
+  }
 
 
-  if (!isWon) {
+  if (!isWon) { // 행
     for (let i = 0; i < n; i++) {
       let cnt = 0
       for (let j = 0; j < n; j++) {
@@ -23,30 +22,30 @@ function GameBoard({ onSelect, gameInfo }) {
         cnt++
       }
       if (cnt === n) {
-        alert('You won!')
+        alert(`You (${latestGameInfo.player}) won!`)
         isWon = true
         break;
       }
     }
   }
 
-  if (!isWon) {
+  if (!isWon) { // 열
     for (let j = 0; j < n; j++) {
       let cnt = 0
       for (let i = 0; i < n; i++) {
-        if (!gameBoard[i][j]) break
-        if (gameBoard[i][j] !== latestGameInfo.player) break
+        if (!gameBoard[i][j]) break;
+        if (gameBoard[i][j] !== latestGameInfo.player) break;
         cnt++
       }
       if (cnt === n) {
-        alert('You won!')
+        alert(`You (${latestGameInfo.player}) won!`)
         isWon = true
         break;
       }
     }
   }
 
-  if (!isWon) {
+  if (!isWon) { // 왼쪽 대각선
     let cnt = 0
     for (let i = 0; i < n; i++) {
       for (let j = 0; j < n; j++) {
@@ -58,12 +57,12 @@ function GameBoard({ onSelect, gameInfo }) {
       }
     }
     if (cnt === n) {
-      alert('You won!')
+      alert(`You (${latestGameInfo.player}) won!`)
       isWon = true
     }
   }
 
-  if (!isWon) {
+  if (!isWon) { // 오른쪽 대각선
     let cnt = 0
     for (let i = 0; i < n; i++) {
       for (let j = n - 1; j >= 0; j--) {
@@ -75,16 +74,10 @@ function GameBoard({ onSelect, gameInfo }) {
       }
     }
     if (cnt === n) {
-      alert('You won!')
+      alert(`You (${latestGameInfo.player}) won!`)
       isWon = true
     }
   }
-
-
-
-
-
-
 
   return (
     <ol id="game-board">

@@ -5,31 +5,35 @@ import Player from "./components/Player"
 import GameBoard from "./components/GameBoard"
 import Log from "./components/Log"
 
+let size = null // size of board
 
 function App() {
   const [gameInfo, setGameInfo] = useState([])
   function handleSelect(row, col) {
-    // console.log(row, col)
     setGameInfo((prevGameInfo, index) => {
-      // console.log(prevGameInfo.length)
       return [{
-      row, col, player: prevGameInfo.length % 2 === 0 ? "X": "O"
-    }, ...prevGameInfo]
-  })
+        row, col, player: prevGameInfo.length % 2 === 0 ? "X" : "O"
+      }, ...prevGameInfo]
+    })
   }
-  // console.log(gameInfo[0])
 
-  
+  if(!size){
+    do{
+      size = parseInt(prompt('Decide game board size you want (below 17)', 3))
+    }while(size > 17)
+  }
+
+
   return (
     <main>
-      <div id="game-container">
+      <div id="game-container" style={{maxWidth: `${45 + size * 5}rem`}}>
         <ol id="players" className="highlight-player">
-          <Player name="Player 1" symbol="X"  isActive={gameInfo.length === 0 || gameInfo[0]?.player === "O"}/>
-          <Player name="Player 2" symbol="O"  isActive={gameInfo[0]?.player === "X"}/>
+          <Player name="Player 1" symbol="X" isActive={gameInfo.length === 0 || gameInfo[0]?.player === "O"} />
+          <Player name="Player 2" symbol="O" isActive={gameInfo[0]?.player === "X"} />
         </ol>
-        <GameBoard onSelect={handleSelect}  gameInfo={gameInfo}/>
+        <GameBoard onSelect={handleSelect} gameInfo={gameInfo} n={size} />
       </div>
-      <Log gameInfo={gameInfo}/>
+      <Log gameInfo={gameInfo} />
     </main >
   )
 }
