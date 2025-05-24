@@ -23,15 +23,17 @@ function App() {
     }while(size > 17)
   }
 
+  const lastGameInfo = gameInfo[0]
+
 
   return (
     <main>
       <div id="game-container" style={{maxWidth: `${45 + size * 5}rem`}}>
         <ol id="players" className="highlight-player">
-          <Player name="Player 1" symbol="X" isActive={gameInfo.length === 0 || gameInfo[0]?.player === "O"} />
-          <Player name="Player 2" symbol="O" isActive={gameInfo[0]?.player === "X"} />
+          <Player name="Player 1" symbol="X" isActive={gameInfo.length === 0 || lastGameInfo?.player === "O"} />
+          <Player name="Player 2" symbol="O" isActive={lastGameInfo?.player === "X"} />
         </ol>
-        <GameBoard onSelect={handleSelect} gameInfo={gameInfo} n={size} />
+        <GameBoard onSelect={handleSelect} latestGameInfo={lastGameInfo} n={size} />
       </div>
       <Log gameInfo={gameInfo} />
     </main >

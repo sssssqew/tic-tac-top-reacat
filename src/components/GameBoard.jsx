@@ -3,9 +3,7 @@ import { useState, useEffect } from "react"
 let isWon = false
 let gameBoard = null
 
-function GameBoard({ onSelect, gameInfo, n }) {
-  const latestGameInfo = gameInfo[0]
-
+function GameBoard({ onSelect, latestGameInfo, n }) {
   if (latestGameInfo) {
     gameBoard[latestGameInfo.row][latestGameInfo.col] = latestGameInfo.player
   } else {
