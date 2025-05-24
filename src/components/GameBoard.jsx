@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 let isWon = false
 let gameBoard = null
 
-function GameBoard({ onSelect, latestGameInfo, n }) {
+function GameBoard({ onSelect, latestGameInfo, n, players }) {
   if (latestGameInfo) {
     gameBoard[latestGameInfo.row][latestGameInfo.col] = latestGameInfo.player
   } else {
@@ -20,7 +20,7 @@ function GameBoard({ onSelect, latestGameInfo, n }) {
         cnt++
       }
       if (cnt === n) {
-        alert(`You (${latestGameInfo.player}) won!`)
+        alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
         isWon = true
         break;
       }
@@ -36,7 +36,7 @@ function GameBoard({ onSelect, latestGameInfo, n }) {
         cnt++
       }
       if (cnt === n) {
-        alert(`You (${latestGameInfo.player}) won!`)
+        alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
         isWon = true
         break;
       }
@@ -55,7 +55,7 @@ function GameBoard({ onSelect, latestGameInfo, n }) {
       }
     }
     if (cnt === n) {
-      alert(`You (${latestGameInfo.player}) won!`)
+      alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
       isWon = true
     }
   }
@@ -72,7 +72,7 @@ function GameBoard({ onSelect, latestGameInfo, n }) {
       }
     }
     if (cnt === n) {
-      alert(`You (${latestGameInfo.player}) won!`)
+      alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
       isWon = true
     }
   }

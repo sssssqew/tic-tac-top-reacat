@@ -37,7 +37,7 @@ function App() {
           <Player name={players["X"]} symbol="X" isActive={gameInfo.length === 0 || lastGameInfo?.player === "O"} />
           <Player name={players["O"]} symbol="O" isActive={lastGameInfo?.player === "X"} />
         </ol>
-        <GameBoard onSelect={handleSelect} latestGameInfo={lastGameInfo} n={size} />
+        <GameBoard onSelect={handleSelect} latestGameInfo={lastGameInfo} n={size} players={players}/>
       </div>
       <Log gameInfo={gameInfo} players={players}/>
     </main >
