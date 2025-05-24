@@ -11,72 +11,85 @@ function GameBoard({ onSelect, latestGameInfo, n, players }) {
   }
 
 
-  if (!isWon) { // 행
-    for (let i = 0; i < n; i++) {
-      let cnt = 0
-      for (let j = 0; j < n; j++) {
-        if (!gameBoard[i][j]) break
-        if (gameBoard[i][j] !== latestGameInfo.player) break
-        cnt++
-      }
-      if (cnt === n) {
-        alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
-        isWon = true
-        break;
+  useEffect(() => {
+    console.log('useeffect')
+    if (!isWon) { // 행
+      for (let i = 0; i < n; i++) {
+        let cnt = 0
+        for (let j = 0; j < n; j++) {
+          if (!gameBoard[i][j]) break
+          if (gameBoard[i][j] !== latestGameInfo.player) break
+          cnt++
+        }
+        if (cnt === n) {
+          setTimeout(() => {
+            alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
+          }, 50)
+          isWon = true
+          break;
+        }
       }
     }
-  }
-
-  if (!isWon) { // 열
-    for (let j = 0; j < n; j++) {
+  
+    if (!isWon) { // 열
+      for (let j = 0; j < n; j++) {
+        let cnt = 0
+        for (let i = 0; i < n; i++) {
+          if (!gameBoard[i][j]) break;
+          if (gameBoard[i][j] !== latestGameInfo.player) break;
+          cnt++
+        }
+        if (cnt === n) {
+          setTimeout(() => {
+            alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
+          }, 50)
+          isWon = true
+          break;
+        }
+      }
+    }
+  
+    if (!isWon) { // 왼쪽 대각선
       let cnt = 0
       for (let i = 0; i < n; i++) {
-        if (!gameBoard[i][j]) break;
-        if (gameBoard[i][j] !== latestGameInfo.player) break;
-        cnt++
+        for (let j = 0; j < n; j++) {
+          if (i === j) {
+            if (!gameBoard[i][j]) break
+            if (gameBoard[i][j] !== latestGameInfo.player) break
+            cnt++
+          }
+        }
       }
       if (cnt === n) {
-        alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
+        setTimeout(() => {
+          alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
+        }, 50)
         isWon = true
-        break;
       }
     }
-  }
-
-  if (!isWon) { // 왼쪽 대각선
-    let cnt = 0
-    for (let i = 0; i < n; i++) {
-      for (let j = 0; j < n; j++) {
-        if (i === j) {
-          if (!gameBoard[i][j]) break
-          if (gameBoard[i][j] !== latestGameInfo.player) break
-          cnt++
+  
+    if (!isWon) { // 오른쪽 대각선
+      let cnt = 0
+      for (let i = 0; i < n; i++) {
+        for (let j = n - 1; j >= 0; j--) {
+          if (i + j === n - 1) {
+            if (!gameBoard[i][j]) break
+            if (gameBoard[i][j] !== latestGameInfo.player) break
+            cnt++
+          }
         }
       }
-    }
-    if (cnt === n) {
-      alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
-      isWon = true
-    }
-  }
-
-  if (!isWon) { // 오른쪽 대각선
-    let cnt = 0
-    for (let i = 0; i < n; i++) {
-      for (let j = n - 1; j >= 0; j--) {
-        if (i + j === n - 1) {
-          if (!gameBoard[i][j]) break
-          if (gameBoard[i][j] !== latestGameInfo.player) break
-          cnt++
-        }
+      if (cnt === n) {
+        setTimeout(() => {
+          alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
+        }, 50)
+        isWon = true
       }
     }
-    if (cnt === n) {
-      alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
-      isWon = true
-    }
-  }
+  
+  })
 
+  console.log('게임보드')
   return (
     <ol id="game-board">
       {gameBoard.map((row, rowIndex) => <li key={rowIndex}>
