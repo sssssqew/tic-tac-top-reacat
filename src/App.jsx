@@ -20,6 +20,9 @@ function App() {
       }, ...prevGameInfo]
     })
   }
+  function editPlayerName(symbol, newName){
+    setPlayers({...players, [symbol]: newName})
+  }
 
   if(!size){
     do{
@@ -34,8 +37,8 @@ function App() {
     <main>
       <div id="game-container" style={{maxWidth: `${45 + size * 5}rem`}}>
         <ol id="players" className="highlight-player">
-          <Player name={players["X"]} symbol="X" isActive={gameInfo.length === 0 || lastGameInfo?.player === "O"} />
-          <Player name={players["O"]} symbol="O" isActive={lastGameInfo?.player === "X"} />
+          <Player name={players["X"]} symbol="X" isActive={gameInfo.length === 0 || lastGameInfo?.player === "O"} onEditName={(symbol, newName) => editPlayerName(symbol, newName)}/>
+          <Player name={players["O"]} symbol="O" isActive={lastGameInfo?.player === "X"} onEditName={(symbol, newName) => editPlayerName(symbol, newName)}/>
         </ol>
         <GameBoard onSelect={handleSelect} latestGameInfo={lastGameInfo} n={size} players={players}/>
       </div>
