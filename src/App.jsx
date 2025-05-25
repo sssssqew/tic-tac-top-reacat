@@ -28,6 +28,15 @@ function App() {
   function handleGameEnd(){
     setIsWon(true)
   }
+  function handleRestart(){
+    size = null
+    setGameInfo([])
+    setIsWon(false)
+    setPlayers({
+      "X" : "Player 1",
+      "O" : "Player 2"
+    })
+  }
 
   if(!size){
     do{
@@ -35,11 +44,8 @@ function App() {
     }while(size > 17)
   }
 
-  console.log(isWon)
   const lastGameInfo = gameInfo[0]
   const isDraw = !isWon && gameInfo.length === size * size
-  console.log(isDraw)
-
 
   return (
     <main>
@@ -48,7 +54,7 @@ function App() {
           <Player name={players["X"]} symbol="X" isActive={gameInfo.length === 0 || lastGameInfo?.player === "O"} onEditName={(symbol, newName) => editPlayerName(symbol, newName)}/>
           <Player name={players["O"]} symbol="O" isActive={lastGameInfo?.player === "X"} onEditName={(symbol, newName) => editPlayerName(symbol, newName)}/>
         </ol>
-        {(isWon || isDraw) && <GameOver winner={`${players[lastGameInfo.player]} (${lastGameInfo.player})`} isDraw={isDraw}/>}
+        {(isWon || isDraw) && <GameOver winner={`${players[lastGameInfo.player]} (${lastGameInfo.player})`} isDraw={isDraw} onRestart={handleRestart}/>}
         <GameBoard onSelect={handleSelect} latestGameInfo={lastGameInfo} n={size} players={players} isWon={isWon} onEnd={handleGameEnd}/>
       </div>
       <Log gameInfo={gameInfo} players={players}/>
