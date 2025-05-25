@@ -1,8 +1,8 @@
-function GameOver({winner}) {
+function GameOver({winner, isDraw}) {
   return (
     <div id="game-over">
       <h2>Game Over!</h2>
-      <p>{winner} won</p>
+      {isDraw ? <p>It is a draw :</p> : <p>{winner} won</p>}
       <p><button>Rematch!</button></p>
     </div>
   )
