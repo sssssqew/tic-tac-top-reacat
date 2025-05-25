@@ -12,9 +12,10 @@ function App() {
   const [gameInfo, setGameInfo] = useState([])
   const [isWon, setIsWon] = useState(false)
   const [players, setPlayers] = useState({
-    "X" : "Player 1",
-    "O" : "Player 2"
+    "X": "Player 1",
+    "O": "Player 2"
   })
+
   function handleSelect(row, col) {
     setGameInfo((prevGameInfo, index) => {
       return [{
@@ -22,26 +23,26 @@ function App() {
       }, ...prevGameInfo]
     })
   }
-  function editPlayerName(symbol, newName){
-    setPlayers({...players, [symbol]: newName})
+  function editPlayerName(symbol, newName) {
+    setPlayers({ ...players, [symbol]: newName })
   }
-  function handleGameEnd(){
+  function handleGameEnd() {
     setIsWon(true)
   }
-  function handleRestart(){
+  function handleRestart() {
     size = null
     setGameInfo([])
     setIsWon(false)
     setPlayers({
-      "X" : "Player 1",
-      "O" : "Player 2"
+      "X": "Player 1",
+      "O": "Player 2"
     })
   }
 
-  if(!size){
-    do{
+  if (!size) {
+    do {
       size = parseInt(prompt('Decide game board size you want (below 17)', 3))
-    }while(size > 17)
+    } while (size > 17)
   }
 
   const lastGameInfo = gameInfo[0]
@@ -49,15 +50,15 @@ function App() {
 
   return (
     <main>
-      <div id="game-container" style={{maxWidth: `${45 + size * 5}rem`}}>
+      <div id="game-container" style={{ maxWidth: `${45 + size * 5}rem` }}>
         <ol id="players" className="highlight-player">
-          <Player name={players["X"]} symbol="X" isActive={gameInfo.length === 0 || lastGameInfo?.player === "O"} onEditName={(symbol, newName) => editPlayerName(symbol, newName)}/>
-          <Player name={players["O"]} symbol="O" isActive={lastGameInfo?.player === "X"} onEditName={(symbol, newName) => editPlayerName(symbol, newName)}/>
+          <Player name={players["X"]} symbol="X" isActive={gameInfo.length === 0 || lastGameInfo?.player === "O"} onEditName={(symbol, newName) => editPlayerName(symbol, newName)} />
+          <Player name={players["O"]} symbol="O" isActive={lastGameInfo?.player === "X"} onEditName={(symbol, newName) => editPlayerName(symbol, newName)} />
         </ol>
-        {(isWon || isDraw) && <GameOver winner={`${players[lastGameInfo.player]} (${lastGameInfo.player})`} isDraw={isDraw} onRestart={handleRestart}/>}
-        <GameBoard onSelect={handleSelect} latestGameInfo={lastGameInfo} n={size} players={players} isWon={isWon} onEnd={handleGameEnd}/>
+        {(isWon || isDraw) && <GameOver winner={`${players[lastGameInfo.player]} (${lastGameInfo.player})`} isDraw={isDraw} onRestart={handleRestart} />}
+        <GameBoard onSelect={handleSelect} latestGameInfo={lastGameInfo} n={size} players={players} isWon={isWon} onEnd={handleGameEnd} />
       </div>
-      <Log gameInfo={gameInfo} players={players}/>
+      <Log gameInfo={gameInfo} players={players} />
     </main >
   )
 }

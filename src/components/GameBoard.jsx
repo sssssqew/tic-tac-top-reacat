@@ -9,7 +9,6 @@ function GameBoard({ onSelect, latestGameInfo, n, players, isWon, onEnd }) {
     gameBoard = new Array(n).fill(0).map(el => new Array(n).fill(null))
   }
 
-
   useEffect(() => {
     if (!isWon) { // 행
       for (let i = 0; i < n; i++) {
