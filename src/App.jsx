@@ -4,11 +4,13 @@ import { useState } from "react"
 import Player from "./components/Player"
 import GameBoard from "./components/GameBoard"
 import Log from "./components/Log"
+import GameOver from './components/GameOver'
 
 let size = null // size of board
 
 function App() {
   const [gameInfo, setGameInfo] = useState([])
+  const [isWon, setIsWon] = useState(false)
   const [players, setPlayers] = useState({
     "X" : "Player 1",
     "O" : "Player 2"
@@ -22,6 +24,9 @@ function App() {
   }
   function editPlayerName(symbol, newName){
     setPlayers({...players, [symbol]: newName})
+  }
+  function handleGameEnd(){
+    setIsWon(true)
   }
 
   if(!size){
@@ -40,7 +45,8 @@ function App() {
           <Player name={players["X"]} symbol="X" isActive={gameInfo.length === 0 || lastGameInfo?.player === "O"} onEditName={(symbol, newName) => editPlayerName(symbol, newName)}/>
           <Player name={players["O"]} symbol="O" isActive={lastGameInfo?.player === "X"} onEditName={(symbol, newName) => editPlayerName(symbol, newName)}/>
         </ol>
-        <GameBoard onSelect={handleSelect} latestGameInfo={lastGameInfo} n={size} players={players}/>
+        {isWon && <GameOver winner={`${players[lastGameInfo.player]} (${lastGameInfo.player})`}/>}
+        <GameBoard onSelect={handleSelect} latestGameInfo={lastGameInfo} n={size} players={players} isWon={isWon} onEnd={handleGameEnd}/>
       </div>
       <Log gameInfo={gameInfo} players={players}/>
     </main >

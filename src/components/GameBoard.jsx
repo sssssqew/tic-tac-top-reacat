@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react"
 
-let isWon = false
 let gameBoard = null
 
-function GameBoard({ onSelect, latestGameInfo, n, players }) {
+function GameBoard({ onSelect, latestGameInfo, n, players, isWon, onEnd }) {
   if (latestGameInfo) {
     gameBoard[latestGameInfo.row][latestGameInfo.col] = latestGameInfo.player
   } else {
@@ -12,7 +11,6 @@ function GameBoard({ onSelect, latestGameInfo, n, players }) {
 
 
   useEffect(() => {
-    console.log('useeffect')
     if (!isWon) { // 행
       for (let i = 0; i < n; i++) {
         let cnt = 0
@@ -23,7 +21,8 @@ function GameBoard({ onSelect, latestGameInfo, n, players }) {
         }
         if (cnt === n) {
           setTimeout(() => {
-            alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
+            // alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
+            onEnd()
           }, 50)
           isWon = true
           break;
@@ -41,7 +40,8 @@ function GameBoard({ onSelect, latestGameInfo, n, players }) {
         }
         if (cnt === n) {
           setTimeout(() => {
-            alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
+            // alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
+            onEnd()
           }, 50)
           isWon = true
           break;
@@ -62,7 +62,8 @@ function GameBoard({ onSelect, latestGameInfo, n, players }) {
       }
       if (cnt === n) {
         setTimeout(() => {
-          alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
+          // alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
+          onEnd()
         }, 50)
         isWon = true
       }
@@ -81,7 +82,8 @@ function GameBoard({ onSelect, latestGameInfo, n, players }) {
       }
       if (cnt === n) {
         setTimeout(() => {
-          alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
+          // alert(`${players[latestGameInfo.player]} (${latestGameInfo.player}) won!`)
+          onEnd()
         }, 50)
         isWon = true
       }
@@ -89,7 +91,6 @@ function GameBoard({ onSelect, latestGameInfo, n, players }) {
   
   })
 
-  console.log('게임보드')
   return (
     <ol id="game-board">
       {gameBoard.map((row, rowIndex) => <li key={rowIndex}>
